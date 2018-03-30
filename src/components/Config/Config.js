@@ -34,10 +34,6 @@ class Config extends React.Component {
     })
   }
 
-  applyNewSettings = event => {
-    console.log('applyNewSettings:', event)
-  }
-
   render = () => {
     const s = this.state
     return (
@@ -76,7 +72,6 @@ class Config extends React.Component {
           </div>
           <div className="ConfigController ConfigOptionBlock">
             <button onClick={this.playPauseControl}>Play/pause</button>
-            <button onClick={this.applyNewSettings}>Apply New Settings</button>
           </div>
         </div>
         <Screensaver xChange={s.xChange} 
