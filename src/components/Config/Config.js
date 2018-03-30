@@ -17,13 +17,9 @@ class Config extends React.Component {
 
   onFieldChange = event => {
     const val = event.target.value
-
     this.setState({
       [event.target.id]: Number(val) || this.state[event.target.id]
     })
-
-    // force a re-render so that Screensaver gets kicked back 
-    // off with the new state objects, which become properties.
   }
 
   playPauseControl = () => {

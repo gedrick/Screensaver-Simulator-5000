@@ -3,21 +3,6 @@ import logo from './images/dvd-logo.png'
 import PropTypes from 'prop-types'
 import './styles/Screensaver.css'
 
-/*
-  state keys:
-    xPosition
-    yPosition
-
-    setInterval (pulled from logoSpeed key) ->
-      update position of logo by painting top/bottom
-
-  prop keys, updated only by Config:
-    xChange
-    yChange
-    logoSpeed (milliseconds)
-    inMotion
-*/
-
 const logoParams = {
   width: 50,
   height: 50
@@ -59,10 +44,6 @@ class Screensaver extends React.Component {
         bottom: props.containerHeight - logoParams.height
       }
     }
-  }
-
-  checkCollision = () => {
-
   }
 
   tick = () => {
