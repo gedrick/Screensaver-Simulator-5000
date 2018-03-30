@@ -1,6 +1,8 @@
 {
-  "name": "screensaver-sim-5000",
-  "version": "0.1.0",
+  "name": "screensaver-simulator-5000",
+  "author": "Geddy <g3ddylee@gmail.com>",
+  "license": "Do whatever the heck you want with it",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "react": "^16.3.0",
