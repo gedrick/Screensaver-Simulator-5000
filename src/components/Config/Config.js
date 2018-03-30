@@ -7,22 +7,23 @@ class Config extends React.Component {
     super()
     this.state = {
       xChange: 5,
-      yChange: 5,
+      yChange: 8,
       containerWidth: 800,
       containerHeight: 220,
-      containerStyles: {
-        width: 800,
-        height: 220
-      },
       inMotion: true,
-      logoSpeed: 30
+      logoSpeed: 500
     }
   }
 
   onFieldChange = event => {
-    console.log('onChangeEvent:', event.target.id)
+    const val = event.target.value
 
-    // here we need to re-render so that Screensaver gets kicked back 
+    // Check if it's valid first!
+    this.setState({
+      [event.target.id]: Number(val) || 5
+    })
+
+    // force a re-render so that Screensaver gets kicked back 
     // off with the new state objects, which become properties.
   }
 
@@ -44,29 +45,34 @@ class Config extends React.Component {
       <div className="Config">
         <div className="ConfigOptions">
           <div className="ConfigContainerOptions ConfigOptionBlock">
-            <label htmlFor="ConfigContainerWidth">Container Width: </label>
-            <input id="ConfigContainerWidth" 
+            <label htmlFor="containerWidth">Container Width: </label>
+            <input id="containerWidth" 
                    type="text" 
+                   onChange={this.onFieldChange.bind(this)} 
                    defaultValue={s.containerWidth} />&nbsp;
-            <label htmlFor="ConfigContainerHeight">Container Height: </label>
-            <input id="ConfigContainerHeight"
+            <label htmlFor="containerHeight">Container Height: </label>
+            <input id="containerHeight"
                    type="text" 
+                   onChange={this.onFieldChange.bind(this)} 
                    defaultValue={s.containerHeight} />
           </div>
           <div className="ConfigMovementOptions ConfigOptionBlock">
             <label htmlFor="logoSpeed">Logo Speed: </label>
             <input id="logoSpeed" 
                    type="text" 
+                   onChange={this.onFieldChange.bind(this)} 
                    defaultValue={s.logoSpeed} />&nbsp;
             
             <label htmlFor="xChange">X Change: </label>
             <input id="xChange" 
                    type="text" 
+                   onChange={this.onFieldChange.bind(this)} 
                    defaultValue={s.xChange} />&nbsp;
             
             <label htmlFor="yChange">Y Change: </label>
             <input id="yChange" 
                    type="text" 
+                   onChange={this.onFieldChange.bind(this)} 
                    defaultValue={s.yChange} />&nbsp;
           </div>
           <div className="ConfigController ConfigOptionBlock">
