@@ -18,9 +18,8 @@ class Config extends React.Component {
   onFieldChange = event => {
     const val = event.target.value
 
-    // Check if it's valid first!
     this.setState({
-      [event.target.id]: Number(val) || 5
+      [event.target.id]: Number(val) || this.state[event.target.id]
     })
 
     // force a re-render so that Screensaver gets kicked back 
