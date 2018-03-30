@@ -11,7 +11,7 @@ class Config extends React.Component {
       containerWidth: 800,
       containerHeight: 220,
       inMotion: true,
-      logoSpeed: 500
+      logoSpeed: 25
     }
   }
 
