@@ -78,35 +78,48 @@ class Screensaver extends React.Component {
       let xAdjuster = prevState.xChange
       let yAdjuster = prevState.yChange
       let wallsHit = 0
+      let cornerCheck = 0
 
       // Check for bottom collision.
       if ((prevState.logoStyles.top + prevState.yChange) >= prevState.boundaries.bottom) {
-        // Get difference
+        // Check that it's an exact hit, which means a legit corner hit.
+        if ((prevState.logoStyles.top + prevState.yChange) === prevState.boundaries.bottom) {
+          cornerCheck++
+        }
         yAdjuster *= -1
         wallsHit++
       }
 
       // Check for top collision.
       if ((prevState.logoStyles.top + prevState.yChange) <= prevState.boundaries.top) {
+        if ((prevState.logoStyles.top + prevState.yChange) === prevState.boundaries.top) {
+          cornerCheck++
+        }
         yAdjuster *= -1
         wallsHit++
       }
 
       // Check for right collision.
       if ((prevState.logoStyles.left + prevState.xChange) >= prevState.boundaries.right) {
+        if ((prevState.logoStyles.left + prevState.xChange) === prevState.boundaries.right) {
+          cornerCheck++
+        }
         xAdjuster *= -1
         wallsHit++
       }
 
       // Check for left collision.
       if ((prevState.logoStyles.left + prevState.xChange) <= prevState.boundaries.left) {
+        if ((prevState.logoStyles.left + prevState.xChange) === prevState.boundaries.left) {
+          cornerCheck++
+        }
         xAdjuster *= -1
         wallsHit++
       }
 
       return {
         wallsHit: prevState.wallsHit + wallsHit,
-        cornersHit: prevState.cornersHit + (wallsHit === 2 ? 1 : 0),
+        cornersHit: prevState.cornersHit + (cornerCheck === 2 ? 1 : 0),
         xChange: xAdjuster,
         yChange: yAdjuster,
         xPosition: prevState.xPosition + xAdjuster,
