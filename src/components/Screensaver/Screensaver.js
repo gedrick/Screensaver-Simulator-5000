@@ -5,8 +5,8 @@ import './styles/Screensaver.css'
 
 /*
   state keys:
-    xStatus
-    yStatus
+    xPosition
+    yPosition
 
     setInterval (pulled from logoSpeed key) ->
       update position of logo by painting top/bottom
@@ -25,7 +25,6 @@ const logoParams = {
 
 class Screensaver extends React.Component {
   constructor(props) {
-    console.log('Screensaver:constructor')
     super(props)
     this.state = this.defaultState(props)
   }
@@ -39,10 +38,12 @@ class Screensaver extends React.Component {
 
   defaultState = props => {
     return {
+      wallsHit: 0,
+      cornersHit: 0,
       xChange: props.xChange,
       yChange: props.yChange,
-      xStatus: 0,
-      yStatus: 0,
+      xPosition: 0,
+      yPosition: 0,
       logoStyles: {
         top: 0,
         left: 0
@@ -50,31 +51,69 @@ class Screensaver extends React.Component {
       containerStyles: {
         width: props.containerWidth || 500,
         height: props.containerHeight || 150
+      },
+      boundaries: {
+        top: 0,
+        left: 0,
+        right: props.containerWidth - logoParams.width,
+        bottom: props.containerHeight - logoParams.height
       }
     }
   }
 
+  checkCollision = () => {
+
+  }
+
   tick = () => {
-    console.log('tick!')
     // Check that we're supposed to start...
     if (!this.props.inMotion) {
       this.stopAnimation()
       return false
     }
 
-    // Check for a wall collision.
-    // if (checkCollision !== false) {
-
-    // }
-
     // Otherwise, go ahead and animate.
     this.setState((prevState, props) => {
+      // let xAdjuster = this.state.xChange
+      let xAdjuster = prevState.xChange
+      let yAdjuster = prevState.yChange
+      let wallsHit = 0
+
+      // Check for bottom collision.
+      if ((prevState.logoStyles.top + prevState.yChange) >= prevState.boundaries.bottom) {
+        // Get difference
+        yAdjuster *= -1
+        wallsHit++
+      }
+
+      // Check for top collision.
+      if ((prevState.logoStyles.top + prevState.yChange) <= prevState.boundaries.top) {
+        yAdjuster *= -1
+        wallsHit++
+      }
+
+      // Check for right collision.
+      if ((prevState.logoStyles.left + prevState.xChange) >= prevState.boundaries.right) {
+        xAdjuster *= -1
+        wallsHit++
+      }
+
+      // Check for left collision.
+      if ((prevState.logoStyles.left + prevState.xChange) <= prevState.boundaries.left) {
+        xAdjuster *= -1
+        wallsHit++
+      }
+
       return {
-        xStatus: prevState.xStatus + this.state.xChange,
-        yStatus: prevState.yStatus + this.state.yChange,
+        wallsHit: prevState.wallsHit + wallsHit,
+        cornersHit: prevState.cornersHit + (wallsHit === 2 ? 1 : 0),
+        xChange: xAdjuster,
+        yChange: yAdjuster,
+        xPosition: prevState.xPosition + xAdjuster,
+        yPosition: prevState.yPosition + yAdjuster,
         logoStyles: {
-          top: (prevState.xStatus + this.state.xChange) + 'px',
-          left: (prevState.yStatus + this.state.yChange) + 'px'
+          top: prevState.yPosition + yAdjuster,
+          left: prevState.xPosition + xAdjuster,
         }
       }
     })
@@ -93,7 +132,7 @@ class Screensaver extends React.Component {
   }
 
   startAnimation = () => {
-    this.logoTimer = setInterval(this.tick, this.props.logoSpeed)
+    this.logoTimer = setInterval(this.tick.bind(this), this.props.logoSpeed)
   }
 
   stopAnimation = () => {
@@ -102,8 +141,14 @@ class Screensaver extends React.Component {
 
   render = () => {
     return (
-      <div id="Screensaver" style={this.state.containerStyles} className="Screensaver">
-        <img src={logo} style={this.state.logoStyles} className="ScreensaverLogo" alt="react-logo" />
+      <div className="ScreenSaver">
+        <div id="ScreensaverContainer" style={this.state.containerStyles} className="ScreensaverContainer">
+          <img src={logo} style={this.state.logoStyles} className="ScreensaverLogo" alt="react-logo" />
+        </div>
+        <div className="ScreenSaverCounters">
+          Bounces: <input type="text" value={this.state.wallsHit} />&nbsp;
+          Corners Hit: <input type="text" value={this.state.cornersHit} />
+        </div>
       </div>
     )
   }

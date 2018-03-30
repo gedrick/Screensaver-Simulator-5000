@@ -7,11 +7,11 @@ class Config extends React.Component {
     super()
     this.state = {
       xChange: 5,
-      yChange: 8,
+      yChange: 4,
       containerWidth: 800,
-      containerHeight: 220,
+      containerHeight: 400,
       inMotion: true,
-      logoSpeed: 25
+      logoSpeed: 10
     }
   }
 
