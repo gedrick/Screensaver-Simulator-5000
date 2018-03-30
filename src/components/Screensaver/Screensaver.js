@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './images/react-logo.png'
+import logo from './images/dvd-logo.png'
 import PropTypes from 'prop-types'
 import './styles/Screensaver.css'
 
@@ -20,7 +20,7 @@ import './styles/Screensaver.css'
 
 const logoParams = {
   width: 50,
-  height: 43
+  height: 50
 }
 
 class Screensaver extends React.Component {
