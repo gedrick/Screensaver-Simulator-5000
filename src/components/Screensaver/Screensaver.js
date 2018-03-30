@@ -18,14 +18,29 @@ import './styles/Screensaver.css'
     inMotion
 */
 
+const logoParams = {
+  width: 50,
+  height: 43
+}
+
 class Screensaver extends React.Component {
   constructor(props) {
+    console.log('Screensaver:constructor')
     super(props)
     this.state = this.defaultState(props)
   }
 
+  componentWillReceiveProps = props => {
+    // Halt animation.
+    this.stopAnimation()
+    this.setState(this.defaultState(props))
+    this.startAnimation()
+  }
+
   defaultState = props => {
     return {
+      xChange: props.xChange,
+      yChange: props.yChange,
       xStatus: 0,
       yStatus: 0,
       logoStyles: {
@@ -39,13 +54,6 @@ class Screensaver extends React.Component {
     }
   }
 
-  componentWillReceiveProps = props => {
-    // Halt animation.
-    this.stopAnimation()
-    this.setState(this.defaultState(props))
-    this.startAnimation()
-  }
-
   tick = () => {
     console.log('tick!')
     // Check that we're supposed to start...
@@ -54,19 +62,22 @@ class Screensaver extends React.Component {
       return false
     }
 
+    // Check for a wall collision.
+    // if (checkCollision !== false) {
+
+    // }
+
     // Otherwise, go ahead and animate.
     this.setState((prevState, props) => {
       return {
-        xStatus: prevState.xStatus + props.xChange,
-        yStatus: prevState.yStatus + props.yChange,
+        xStatus: prevState.xStatus + this.state.xChange,
+        yStatus: prevState.yStatus + this.state.yChange,
         logoStyles: {
-          top: (prevState.xStatus + props.xChange) + 'px',
-          left: (prevState.yStatus + props.yChange) + 'px'
+          top: (prevState.xStatus + this.state.xChange) + 'px',
+          left: (prevState.yStatus + this.state.yChange) + 'px'
         }
       }
     })
-
-    // This is where we would check for a wall collision.
   }
 
   // Initial load process.
