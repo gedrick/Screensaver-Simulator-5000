@@ -1,6 +1,6 @@
-# screensaver-sim-5000
+# Screensaver Simulator 5000
 
-"I SAW IT. I SAW IT AND IT WAS AMAZING."
+"I SAW IT. I SAW IT AND IT WAS AMAZING." - Pamela Morgan Beesly
 
 This app is terribly pointless. It's also my first React app and I needed something short to make.
 
