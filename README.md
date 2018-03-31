@@ -11,6 +11,9 @@ never does? I built this to simulate one of those screensavers, at speed, to fin
 it would happen organically given enough time. I figured it'd be quicker to build this than to keep 
 staring at the PLEX screensaver for another hour, or probably more.
 
+You can change the size of the screen, the rate that the icon bounces around, and the time (ms) 
+between ticks. I felt that was sufficient enough for something so beautifully pointless.
+
 # Installation
 
 Clone the project, run the following:
